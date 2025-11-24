@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp"
+    android:descendantFocusability="blocksDescendants">
+
+    <!-- Avatar Circle -->
+    <TextView
+        android:id="@+id/tvAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_avatar"
+        android:gravity="center"
+        android:text="E"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Important Indicator (Yellow triangle) -->
+    <ImageView
+        android:id="@+id/ivImportant"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@android:drawable/btn_star_big_on"
+        android:tint="#F9AB00"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Sender Name -->
+    <TextView
+        android:id="@+id/tvSender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Edurila.com"
+        android:textColor="#202124"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvTime"
+        app:layout_constraintStart_toEndOf="@+id/tvAvatar"
+        app:layout_constraintTop_toTopOf="@+id/tvAvatar" />
+
+    <!-- Time -->
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:34 PM"
+        android:textColor="#5F6368"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvSender" />
+
+    <!-- Subject -->
+    <TextView
+        android:id="@+id/tvSubject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="$19 Only (First 10 spots) - Bestselling..."
+        android:textColor="#202124"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnStar"
+        app:layout_constraintStart_toEndOf="@+id/tvAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/tvSender" />
+
+    <!-- Star Button -->
+    <ImageButton
+        android:id="@+id/btnStar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Star"
+        android:src="@android:drawable/btn_star_big_off"
+        android:tint="#5F6368"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+    <!-- Preview Text -->
+    <TextView
+        android:id="@+id/tvPreview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="32dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Are you looking to Learn Web Designin..."
+        android:textColor="#5F6368"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubject" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
