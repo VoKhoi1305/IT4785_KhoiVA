@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDetail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MSSV (Không thể sửa):"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/etDetailMSSV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:background="#EFEFEF"
+                android:padding="10dp"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Họ và tên:"/>
+            <EditText
+                android:id="@+id/etDetailHoten"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập họ tên"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại:"/>
+            <EditText
+                android:id="@+id/etDetailSDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="Nhập SĐT"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ:"/>
+            <EditText
+                android:id="@+id/etDetailDiaChi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập địa chỉ"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cập Nhật Thông Tin"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

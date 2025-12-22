@@ -5,86 +5,50 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 class StudentDetailActivity : AppCompatActivity() {
-    private lateinit var edtMSSV: EditText
-    private lateinit var edtName: EditText
-    private lateinit var edtPhone: EditText
-    private lateinit var edtAddress: EditText
-    private lateinit var btnUpdate: Button
-    private lateinit var btnCancel: Button
-
-    private var originalStudent: Student? = null
-    private var position: Int = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_detail)
 
-        // Thiết lập action bar
-        supportActionBar?.title = "Chi tiết sinh viên"
+        val toolbar = findViewById<Toolbar>(R.id.toolbarDetail)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Chi Tiết Sinh Viên"
 
-        initializeViews()
-        loadStudentData()
-        setupButtons()
-    }
-
-    private fun initializeViews() {
-        edtMSSV = findViewById(R.id.edtMSSV)
-        edtName = findViewById(R.id.edtName)
-        edtPhone = findViewById(R.id.edtPhone)
-        edtAddress = findViewById(R.id.edtAddress)
-        btnUpdate = findViewById(R.id.btnUpdate)
-        btnCancel = findViewById(R.id.btnCancel)
-    }
-
-    private fun loadStudentData() {
-        originalStudent = intent.getParcelableExtra("STUDENT")
-        position = intent.getIntExtra("POSITION", -1)
-
-        originalStudent?.let { student ->
-            edtMSSV.setText(student.id)
-            edtName.setText(student.name)
-            edtPhone.setText(student.phone)
-            edtAddress.setText(student.address)
-
-            // Không cho phép sửa MSSV
-            edtMSSV.isEnabled = false
-        }
-    }
-
-    private fun setupButtons() {
-        btnUpdate.setOnClickListener {
-            val name = edtName.text.toString().trim()
-            val phone = edtPhone.text.toString().trim()
-            val address = edtAddress.text.toString().trim()
-
-            // Validate
-            if (name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Cập nhật sinh viên
-            originalStudent?.let { student ->
-                val updatedStudent = Student(student.id, name, phone, address)
-                if (StudentManager.updateStudent(student.id, updatedStudent)) {
-                    Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        btnCancel.setOnClickListener {
+        toolbar.setNavigationOnClickListener {
             finish()
         }
-    }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
+        // 2. XỬ LÝ LOGIC CẬP NHẬT
+        val etMSSV = findViewById<EditText>(R.id.etDetailMSSV)
+        val etHoten = findViewById<EditText>(R.id.etDetailHoten)
+        val etSDT = findViewById<EditText>(R.id.etDetailSDT)
+        val etDiaChi = findViewById<EditText>(R.id.etDetailDiaChi)
+        val btnUpdate = findViewById<Button>(R.id.btnUpdate)
+
+        val mssv = intent.getStringExtra("MSSV")
+        val student = StudentRepository.getStudent(mssv ?: "")
+
+        if (student != null) {
+            etMSSV.setText(student.mssv)
+            etHoten.setText(student.hoTen)
+            etSDT.setText(student.soDienThoai)
+            etDiaChi.setText(student.diaChi)
+        }
+
+        btnUpdate.setOnClickListener {
+            if (student != null) {
+                student.hoTen = etHoten.text.toString()
+                student.soDienThoai = etSDT.text.toString()
+                student.diaChi = etDiaChi.text.toString()
+
+                Toast.makeText(this, "Đã cập nhật thông tin!", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Lỗi: Không tìm thấy sinh viên", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

@@ -5,66 +5,49 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 class AddStudentActivity : AppCompatActivity() {
-    private lateinit var edtMSSV: EditText
-    private lateinit var edtName: EditText
-    private lateinit var edtPhone: EditText
-    private lateinit var edtAddress: EditText
-    private lateinit var btnSave: Button
-    private lateinit var btnCancel: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_student)
 
-        // Thiết lập action bar
-        supportActionBar?.title = "Thêm sinh viên"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val toolbar = findViewById<Toolbar>(R.id.toolbarAdd)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Hiện nút mũi tên
+        supportActionBar?.title = "Thêm Sinh Viên Mới"
 
-        initializeViews()
-        setupButtons()
-    }
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
-    private fun initializeViews() {
-        edtMSSV = findViewById(R.id.edtMSSV)
-        edtName = findViewById(R.id.edtName)
-        edtPhone = findViewById(R.id.edtPhone)
-        edtAddress = findViewById(R.id.edtAddress)
-        btnSave = findViewById(R.id.btnSave)
-        btnCancel = findViewById(R.id.btnCancel)
-    }
+        val etMSSV = findViewById<EditText>(R.id.etMSSV)
+        val etHoten = findViewById<EditText>(R.id.etHoten)
+        val etSDT = findViewById<EditText>(R.id.etSDT)
+        val etDiaChi = findViewById<EditText>(R.id.etDiaChi)
+        val btnAdd = findViewById<Button>(R.id.btnAdd)
 
-    private fun setupButtons() {
-        btnSave.setOnClickListener {
-            val mssv = edtMSSV.text.toString().trim()
-            val name = edtName.text.toString().trim()
-            val phone = edtPhone.text.toString().trim()
-            val address = edtAddress.text.toString().trim()
+        btnAdd.setOnClickListener {
+            val mssv = etMSSV.text.toString().trim()
+            val hoten = etHoten.text.toString().trim()
+            val sdt = etSDT.text.toString().trim()
+            val diachi = etDiaChi.text.toString().trim()
 
-            // Validate
-            if (mssv.isEmpty() || name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+            if (mssv.isEmpty() || hoten.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập MSSV và Họ tên", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Thêm sinh viên
-            val newStudent = Student(mssv, name, phone, address)
-            if (StudentManager.addStudent(newStudent)) {
-                Toast.makeText(this, "Thêm sinh viên thành công", Toast.LENGTH_SHORT).show()
-                finish() // Quay lại MainActivity
-            } else {
-                Toast.makeText(this, "Mã số sinh viên đã tồn tại", Toast.LENGTH_SHORT).show()
+            if (StudentRepository.getStudent(mssv) != null) {
+                Toast.makeText(this, "MSSV đã tồn tại!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-        }
 
-        btnCancel.setOnClickListener {
+            val newStudent = Student(mssv, hoten, sdt, diachi)
+            StudentRepository.addStudent(newStudent)
+
+            Toast.makeText(this, "Đã thêm thành công", Toast.LENGTH_SHORT).show()
             finish()
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
     }
 }
