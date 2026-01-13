@@ -15,18 +15,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-
-    // 2. KHAI BÁO BIẾN Ở ĐÂY (Cấp độ Class) để dùng được mọi nơi
     private lateinit var adapter: StudentAdapter
     private lateinit var searchView: SearchView
-    private lateinit var recyclerView: RecyclerView // <--- Sửa lỗi Unresolved reference recyclerView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 3. ÁNH XẠ VIEW (Gán giá trị cho biến đã khai báo ở trên)
-        // Lưu ý: Không dùng từ khóa 'val' hay 'var' ở đầu dòng nữa
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.searchView)
 

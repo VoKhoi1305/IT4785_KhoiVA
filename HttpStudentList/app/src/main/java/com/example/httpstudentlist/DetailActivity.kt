@@ -1,6 +1,7 @@
 package com.example.httpstudentlist
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +12,20 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        // --- XỬ LÝ NÚT BACK ---
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        // --- XỬ LÝ DỮ LIỆU ---
         val student = intent.getSerializableExtra("STUDENT_DATA") as? Student
 
         if (student != null) {
             findViewById<TextView>(R.id.tvDetailName).text = student.hoten
             findViewById<TextView>(R.id.tvDetailMssv).text = "MSSV: ${student.mssv}"
-            findViewById<TextView>(R.id.tvDetailDob).text = "Ngày sinh: ${student.ngaysinh}"
-            findViewById<TextView>(R.id.tvDetailEmail).text = "Email: ${student.email}"
+            findViewById<TextView>(R.id.tvDetailDob).text = student.ngaysinh
+            findViewById<TextView>(R.id.tvDetailEmail).text = student.email
 
             val img = findViewById<ImageView>(R.id.imgDetailAvatar)
 
